@@ -22,7 +22,7 @@ The code provides numerical verification of the main theoretical results concern
 ## Repository Structure
 
 ```
-paper_0A_repo/
+conformal-density-repo/
 ├── src/
 │   └── conformal_density.py    # Main computational module
 ├── tests/
@@ -51,7 +51,7 @@ paper_0A_repo/
 
 ```bash
 # Clone repository
-git clone https://github.com/kerym-makraini/conformal-density.git
+git clone https://github.com/KerymMacryn/conformal-density-repo.git
 cd conformal-density
 
 # Install dependencies
@@ -178,20 +178,6 @@ For helicity n=0 (scalar field):
 | 100 | 0.98 | 0.02 |
 | 200 | 0.99 | 0.01 |
 
-## Citation
-
-If you use this code, please cite:
-
-```bibtex
-@article{Makraini2025conformal,
-  title={On the Necessity of Internal Degrees of Freedom 
-         in Conformally Invariant Structures},
-  author={Makraini, Kerym},
-  journal={Journal of Mathematical Physics},
-  year={2025},
-  note={Submitted}
-}
-```
 
 ## License
 
