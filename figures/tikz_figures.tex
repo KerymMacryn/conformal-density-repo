@@ -1,0 +1,255 @@
+%% =============================================================================
+%% FIGURAS TIKZ PARA PAPER 0A
+%% =============================================================================
+%% Incluir en el preámbulo del paper:
+%% \usepackage{tikz}
+%% \usetikzlibrary{decorations.pathmorphing,patterns,arrows.meta,shapes,calc}
+%% =============================================================================
+
+
+%% =============================================================================
+%% FIGURA 1: TWISTOR SPACE DECOMPOSITION
+%% =============================================================================
+%% Ubicación sugerida: Después de Sección 4.4
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.3]
+  % Twistor space as ellipse
+  \fill[blue!5] (0,0) ellipse (3 and 2);
+  \draw[thick] (0,0) ellipse (3 and 2);
+  
+  % Division line (PT_R)
+  \draw[thick, dashed, red!70!black] (-3,0) -- (3,0);
+  
+  % Labels for regions
+  \node at (0,1) {\large $\PT^+$};
+  \node at (0,-1) {\large $\PT^-$};
+  \node[red!70!black] at (3.4,0) {$\PT_\RR$};
+  
+  % Twistor line CP1_x
+  \draw[thick, blue!70!black, line width=1.5pt] (-2,-1.5) -- (1.5,1.8);
+  \node[blue!70!black] at (1.9,2) {$\CP^1_x$};
+  
+  % Hemisphere H_x (portion of line in PT+)
+  \draw[very thick, green!50!black, line width=2pt] (-0.5,0) -- (1.5,1.8);
+  \node[green!50!black] at (-0.2,0.8) {$H_x$};
+  
+  % Intersection point with PT_R
+  \fill[red!70!black] (-0.5,0) circle (3pt);
+  
+  % Arrow to spacetime
+  \draw[-{Stealth[length=3mm]}, thick] (4,0) -- (6,0);
+  \node at (5,0.4) {incidence};
+  
+  % Spacetime point
+  \fill[black] (7,0) circle (4pt);
+  \node at (7,-0.4) {$x \in M$};
+  
+  % Annotation
+  \node[align=center, font=\small] at (0,-2.7) {
+    Positive frequency $\Leftrightarrow$ holomorphic on $H_x$
+  };
+\end{tikzpicture}
+\caption{Twistor space decomposition and the incidence relation. The projective twistor space $\PT \cong \CP^3$ is divided by the real structure into regions $\PT^+$, $\PT^-$, and $\PT_\RR$. The twistor line $\CP^1_x$ corresponding to spacetime point $x$ intersects $\PT^+$ in the hemisphere $H_x$. Cohomology classes that extend holomorphically to $H_x$ correspond to positive-frequency fields at $x$.}
+\label{fig:twistor-decomposition}
+\end{figure}
+
+
+%% =============================================================================
+%% FIGURA 2: CONCEPTUAL FLOW DIAGRAM
+%% =============================================================================
+%% Ubicación sugerida: Introducción o Sección 8
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=1.8cm,
+  box/.style={rectangle, draw, thick, minimum width=3.2cm, minimum height=0.9cm, align=center, font=\small},
+  arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+  % Nodes
+  \node[box, fill=blue!10] (conf) {Conformal structure\\$[g]$};
+  \node[box, fill=blue!10, right=of conf] (twistor) {Twistor space\\$\PT$};
+  \node[box, fill=green!10, right=of twistor] (cohom) {Cohomology\\$H^1(\CP^1_x, \scrO)$};
+  
+  \node[box, fill=orange!10, below=of cohom] (holo) {Holomorphic\\content};
+  \node[box, fill=red!10, below=of holo] (rho) {Conformal density\\$\rho(x)$};
+  
+  \node[box, fill=purple!10, left=of rho] (E) {Integrability\\$\mathcal{E}[\rho] = 0$};
+  \node[box, fill=yellow!10, left=of E] (dyn) {Dynamics\\(emergent)};
+  
+  % Arrows
+  \draw[arrow] (conf) -- (twistor);
+  \draw[arrow] (twistor) -- (cohom);
+  \draw[arrow] (cohom) -- (holo);
+  \draw[arrow] (holo) -- (rho);
+  \draw[arrow] (rho) -- (E);
+  \draw[arrow] (E) -- (dyn);
+  
+  % Annotations
+  \node[font=\scriptsize, above] at ($(conf)!0.5!(twistor)$) {correspondence};
+  \node[font=\scriptsize, above] at ($(twistor)!0.5!(cohom)$) {Penrose};
+  \node[font=\scriptsize, right] at ($(cohom)!0.5!(holo)$) {regularization};
+  \node[font=\scriptsize, right] at ($(holo)!0.5!(rho)$) {Definition 5.1};
+  \node[font=\scriptsize, below] at ($(rho)!0.5!(E)$) {consistency};
+  \node[font=\scriptsize, below] at ($(E)!0.5!(dyn)$) {Theorem 6.2};
+  
+\end{tikzpicture}
+\caption{Conceptual flow from conformal structure to emergent dynamics. The conformal density $\rho$ arises as an intrinsic measure of holomorphic content, and its consistency conditions yield dynamical equations without introducing external structure.}
+\label{fig:conceptual-flow}
+\end{figure}
+
+
+%% =============================================================================
+%% FIGURA 3: REGULARIZATION SCHEME
+%% =============================================================================
+%% Ubicación sugerida: Sección 5.2
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.2]
+  % Axes
+  \draw[-{Stealth}] (-0.5,0) -- (5,0) node[right] {$\Lambda$};
+  \draw[-{Stealth}] (0,-0.5) -- (0,3.5) node[above] {$\mathrm{Tr}(\chi_\Lambda P)$};
+  
+  % Horizontal asymptote (rank P)
+  \draw[dashed, gray] (0,3) -- (5,3);
+  \node[left] at (0,3) {$N$};
+  
+  % Curve converging to N
+  \draw[thick, blue!70!black, domain=0.3:4.8, samples=100] 
+    plot (\x, {3*(1 - exp(-0.8*\x))});
+  
+  % Points
+  \foreach \x/\y in {1/1.65, 2/2.52, 3/2.88, 4/2.97} {
+    \fill[blue!70!black] (\x, \y) circle (2pt);
+  }
+  
+  % Labels
+  \node[below] at (1,0) {$\Lambda_1$};
+  \node[below] at (2,0) {$\Lambda_2$};
+  \node[below] at (3,0) {$\Lambda_3$};
+  \node[below] at (4,0) {$\Lambda_4$};
+  
+  % Annotation
+  \draw[-{Stealth}, thick] (3.5,1.5) -- (4.3,2.8);
+  \node[align=center, font=\small] at (3,1) {Convergence\\$\Lambda \to \infty$};
+  
+  % Dimension label
+  \node[right, font=\small] at (5,3) {$= \dim H^1 = n+1$};
+  
+\end{tikzpicture}
+\caption{Regularized trace convergence (Lemma~5.3). As the cutoff parameter $\Lambda \to \infty$, the regularized trace $\mathrm{Tr}(\chi_\Lambda P)$ converges monotonically to the algebraic dimension $N = n+1$ of the cohomology space.}
+\label{fig:trace-convergence}
+\end{figure}
+
+
+%% =============================================================================
+%% FIGURA 4: VARIABLE RHO PROFILES (SCHEMATIC)
+%% =============================================================================
+%% Ubicación sugerida: Appendix D o Section 5
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  % Axes
+  \draw[-{Stealth}] (-0.5,0) -- (6,0) node[right] {$r$};
+  \draw[-{Stealth}] (0,-0.3) -- (0,3) node[above] {$\rho(r)$};
+  
+  % Horizontal line at 1
+  \draw[dashed, gray] (0,2) -- (6,2);
+  \node[left] at (0,2) {$1$};
+  
+  % Vacuum (constant)
+  \draw[thick, blue, domain=0:5.5] plot (\x, 2);
+  \node[blue, right] at (5.5,2.2) {vacuum};
+  
+  % Radial decay
+  \draw[thick, red, domain=0:5.5, samples=100] 
+    plot (\x, {2/(1 + 0.3*\x*\x)});
+  \node[red, right] at (5.5,0.5) {radial};
+  
+  % Compact support
+  \draw[thick, green!50!black, domain=0:2] 
+    plot (\x, {0.8 + 1.2*\x*\x/4});
+  \draw[thick, green!50!black, domain=2:5.5] plot (\x, 2);
+  \node[green!50!black, right] at (5.5,1.3) {compact};
+  
+  % Mark R
+  \draw[dotted] (2,0) -- (2,2);
+  \node[below] at (2,0) {$R$};
+  
+  % Labels
+  \node[left] at (0,0.8) {$\rho_{\min}$};
+  \draw[dotted, gray] (0,0.8) -- (0.1,0.8);
+  
+\end{tikzpicture}
+\caption{Schematic profiles of the conformal density $\rho(r)$. Blue: Minkowski vacuum ($\rho \equiv 1$). Red: radial variation $\rho = (1 + r^2/R^2)^{-1}$. Green: compactly supported perturbation with $\rho = 1$ for $r > R$.}
+\label{fig:rho-profiles}
+\end{figure}
+
+
+%% =============================================================================
+%% TABLA 1: COMPARISON OF FREQUENCY CHARACTERIZATIONS
+%% =============================================================================
+
+\begin{table}[htbp]
+\caption{Comparison of positive frequency characterizations in field theory}
+\label{tab:frequency-comparison}
+\centering
+\begin{tabular}{lccc}
+\hline\hline
+\textbf{Approach} & \textbf{Conformal inv.} & \textbf{Global} & \textbf{Dynamical DOF} \\
+\hline
+Fourier decomposition & No & No & No \\
+Forward tube (BHW) & Partial & No & No \\
+Twistor space (Penrose) & Yes & Yes & No \\
+\textbf{Conformal density (this work)} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+
+%% =============================================================================
+%% TABLA 2: PROPERTIES OF THE INTEGRABILITY OPERATOR
+%% =============================================================================
+
+\begin{table}[htbp]
+\caption{Analytic properties of the integrability operator $\mathcal{E}$}
+\label{tab:E-properties}
+\centering
+\begin{tabular}{ll}
+\hline\hline
+\textbf{Property} & \textbf{Description} \\
+\hline
+Order & Second-order, quasi-linear \\
+Principal symbol & $\sigma_{\mathcal{E}}(\xi) = \alpha|\xi|^2 + \beta P^{\mu\nu}\xi_\mu\xi_\nu + O(|W|)$ \\
+Ellipticity & Uniform for $\alpha > 0$, conformally flat backgrounds \\
+Conformal covariance & $\mathcal{E}_{\Omega^2 g}[\rho] = \Omega^{-w}\mathcal{E}_g[\rho]$ \\
+Variational structure & $\mathcal{E}[\rho] = \delta S / \delta\rho$ (Helmholtz conditions satisfied) \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+
+%% =============================================================================
+%% TABLA 3: COMPARISON WITH EMERGENT GRAVITY PROGRAMS
+%% =============================================================================
+
+\begin{table}[htbp]
+\caption{Comparison with emergent gravity programs}
+\label{tab:emergent-comparison}
+\centering
+\begin{tabular}{lcccc}
+\hline\hline
+\textbf{Program} & \textbf{Primary ontology} & \textbf{Conformal} & \textbf{No metric input} & \textbf{Dynamical} \\
+\hline
+Jacobson (thermodynamic) & Entropy & Partial & No & Yes \\
+Verlinde (entropic) & Information & No & No & Yes \\
+LQG (spin networks) & Discrete geometry & No & Yes & Yes \\
+Causal sets & Discrete causality & No & Yes & Partial \\
+\textbf{This work} & \textbf{Holomorphic structure} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\hline\hline
+\end{tabular}
+\end{table}
